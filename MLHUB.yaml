@@ -1,0 +1,20 @@
+--- # Azure Anomalies
+meta:
+  name         : azanomaly
+  title        : Azure Anomaly Detection cognitive service on the cloud.
+  keywords     : azure, anomaly detection, cloud
+  version      : 1.0.0
+  languages    : py
+  license      : mit
+  author       : Graham.Williams@togaware.com
+  url          : https://github.com/gjwgit/azanomaly
+dependencies:
+  pip3: requests, uuid
+  files:
+    - https://mlhub.ai/empty.txt: private.py
+    - README.md
+    - demo.py
+    - utils.py
+    - request-data.json
+commands:
+  demo    : Demonstrate the functionality of anomaly detection.

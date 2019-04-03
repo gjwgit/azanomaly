@@ -38,6 +38,7 @@ $ pip3 install mlhub
 $ ml install   azanomaly
 $ ml configure azanomaly
 $ ml demo      azanomaly
+```
 
 Demonstration
 -------------

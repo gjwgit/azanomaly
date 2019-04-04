@@ -9,6 +9,8 @@ import sys
 import readline  # Don't remove !! For prompt of input() to take effect
 import termios
 import tty
+import requests
+import json
 
 # Load subscription key and endpoint from file.
 
@@ -134,3 +136,36 @@ def ask_password(prompt=None):
         sys.stdout.write('\n')
 
     return ''.join(chars)
+
+# Send a request.
+
+def send_request(endpoint, url, subscription_key, request_data):
+    """Send anomaly detection request to the Anomaly Detector API. 
+
+    If the request is successful, the JSON response is returned.
+
+    Aim to generailse this to go into MLHUB to send request.
+    """
+    
+    headers = {'Content-Type': 'application/json',
+               'Ocp-Apim-Subscription-Key': subscription_key}
+    
+    response = requests.post(endpoint+url,
+                             data=json.dumps(request_data),
+                             headers=headers)
+    
+    if response.status_code == 200:
+        return json.loads(response.content.decode("utf-8"))
+    else:
+        print(response.status_code)
+        raise Exception(response.text)
+
+
+def ask_continue(begin=""):
+    print(begin + "Press Enter to continue: ", end="")
+    answer = input()
+
+def inform_about(title="", text="", delim="=", begin="", end="\n"):
+    sep = delim*len(title) + "\n" if len(title) > 0 else ""
+    ttl_sep = "\n" if len(title) > 0 else ""
+    print(begin + sep + title + ttl_sep + sep + ttl_sep + text, end=end)

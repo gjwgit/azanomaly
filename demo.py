@@ -116,7 +116,7 @@ ask_continue(begin="\n")
 inform_about("Latest Data Point", """\
 A common task is to determine if the latest data point in a time series is an
 anomaly. There are many usecases for apps where a series of data is being 
-streamed at we are interested to know an anomaly arises, when it arises. 
+streamed.  We are interested to know of an anomaly, when it arises. 
 As data points arrive we can query the service to check if in the context
 of the time series data whether this latest observation is an anomaly.
 """, begin="\n")

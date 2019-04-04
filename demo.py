@@ -124,5 +124,12 @@ of the time series data whether this latest observation is an anomaly.
 result = send_request(endpoint, LATEST_URL, subscription_key, data)
 print(json.dumps(result, indent=4))
 
+ask_continue(begin="\n")
+
 # Generate a plot to show the time series and the anomalies.
+
+inform_about("Comming Soon", """\
+Stay tuned for a plot of the original data overlayed on the expected values plot
+with a shaded confidence interval, identifying the anomalies visually.
+""", begin="\n")
 

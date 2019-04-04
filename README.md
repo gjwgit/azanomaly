@@ -26,7 +26,7 @@ Python](https://docs.microsoft.com/en-us/azure/cognitive-services/anomaly-detect
 Usage
 -----
 
-- To install mlhub (e.g., on Ubunut 18.04 LTS)
+- To install mlhub (e.g., on Ubuntu 18.04 LTS)
 
 ```shell
 $ pip3 install mlhub

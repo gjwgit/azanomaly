@@ -3,7 +3,7 @@ meta:
   name         : azanomaly
   title        : Azure Anomaly Detection cognitive service on the cloud.
   keywords     : azure, anomaly detection, cloud
-  version      : 2.0.2
+  version      : 2.0.3
   languages    : py
   license      : mit
   author       : Graham.Williams@togaware.com
@@ -16,5 +16,6 @@ dependencies:
     - demo.py
     - utils.py
     - request-data.json
+    - request-data.pdf
 commands:
   demo    : Demonstrate the functionality of anomaly detection.

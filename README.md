@@ -26,13 +26,13 @@ Python](https://docs.microsoft.com/en-us/azure/cognitive-services/anomaly-detect
 Usage
 -----
 
-- To install mlhub 
+- To install mlhub (e.g., on Ubunut 18.04 LTS)
 
 ```shell
 $ pip3 install mlhub
 ```
 
-- To install and run the pre-built model:
+- To install and run the demo:
 
 ```shell
 $ ml install   azanomaly

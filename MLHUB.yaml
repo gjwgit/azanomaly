@@ -9,6 +9,7 @@ meta:
   author       : Graham.Williams@togaware.com
   url          : https://github.com/gjwgit/azanomaly
 dependencies:
+  system: atril
   pip3: requests, uuid
   files:
     - https://mlhub.ai/empty.txt: private.txt

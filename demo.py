@@ -141,7 +141,6 @@ inform_about("Visualising the Anomalies", """\
 We now plot the original data overlayed on the expected values which represent
 a range of values within which we expect the actual value to be. The expected
 range is the shaded area. The actual values are plotted as the blue line, and
-the identified anomalies are shown in red.
-""", begin="\n")
+the identified anomalies are shown in red.""", begin="\n")
 
 os.system("atril --preview request-data.pdf")

@@ -145,7 +145,7 @@ range is the shaded area. The actual values are plotted as the blue line, and
 the identified anomalies are shown in red.
 ```
 ![alt
-text](request-data.pdf "Actual Values versus Range of Expected Values")
+text](request-data.png "Actual Values versus Range of Expected Values")
 
 ```console
 Thank you for exploring the 'azanomaly' package.

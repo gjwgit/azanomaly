@@ -5,11 +5,11 @@ meta:
   keywords     : azure, anomaly detection, cloud
   version      : 2.0.6
   languages    : py
+  display      : demo
   license      : mit
   author       : Graham.Williams@togaware.com
   url          : https://github.com/gjwgit/azanomaly
 dependencies:
-  system: atril
   pip3: requests, uuid
   files:
     - https://mlhub.ai/empty.txt: private.txt

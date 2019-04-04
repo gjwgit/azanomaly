@@ -109,6 +109,15 @@ for i in [0, 1, 2, 3, 30, 31, 32, 33, 34]: inform_about("", """\
            "negative" if negative[i] else "",
            "anomaly" if anomaly[i] else ""), end="")
 
+# for i in range(len(anomalies)): inform_about("", """\
+# {},{},{},{},{},{}
+# """.format(timestamps[i],
+#            round(values[i]),
+#            round(expected[i]),
+#            round(expected[i]-lower[i]),
+#            round(expected[i]+upper[i]),
+#            "TRUE" if anomaly[i] else "FALSE"), end="")
+
 ask_continue(begin="\n")
 
 # Detect if the latest data point in the time series is an anomaly.
@@ -128,10 +137,11 @@ ask_continue(begin="\n")
 
 # Generate a plot to show the time series and the anomalies.
 
-inform_about("Comming Soon", """\
-Stay tuned for a plot of the original data overlayed on the expected values plot
-with a shaded confidence interval, identifying the anomalies visually. Here's 
-a start.
+inform_about("Visualising the Anomalies", """\
+We now plot the original data overlayed on the expected values which represent
+a range of values within which we expect the actual value to be. The expected
+range is the shaded area. The actual values are plotted as the blue line, and
+the identified anomalies are shown in red.
 """, begin="\n")
 
 os.system("atril --preview request-data.pdf")

@@ -29,10 +29,7 @@ ifneq ("$(wildcard $(INC_CLEAN))","")
   include $(INC_CLEAN)
 endif
 
-$(MODEL)_rpart_model.RData: train.R $(MODEL).csv
-	Rscript $<
-
-data.csv: train.R audit.csv
+request-data.pdf: plot.R request-data.csv
 	Rscript $<
 
 clean::

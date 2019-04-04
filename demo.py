@@ -130,6 +130,8 @@ ask_continue(begin="\n")
 
 inform_about("Comming Soon", """\
 Stay tuned for a plot of the original data overlayed on the expected values plot
-with a shaded confidence interval, identifying the anomalies visually.
+with a shaded confidence interval, identifying the anomalies visually. Here's 
+a start.
 """, begin="\n")
 
+os.system("atril --preview request-data.pdf")

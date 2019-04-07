@@ -21,7 +21,7 @@ import statistics
 
 SERVICE   = "Anomaly Detector"
 KEY_FILE  = os.getcwd() + "/private.txt"
-DATA_FILE = "request-data.json"
+DATA_FILE = "request.json"
 
 # URLs for anomaly detection with the Anomaly Detector API.
 
@@ -43,6 +43,7 @@ Here we review the data that we wish to explore for anomalies.""",
 file_handler = open(DATA_FILE)
 data = json.load(file_handler)
 series = data['series']
+sensitivity = data['sensitivity']
 
 inform_about(text="""
 The dataset contains {} {} observations recording the number of requests
@@ -70,7 +71,10 @@ The observations range from {:,} to {:,} with a mean value
 
 inform_about("Detecting Anomalies", """\
 The data is being sent to the server and the results are being collected.
-""")
+A sensitivity of {} was specified in the data to increase the boundary 
+beyond which observations are regarded as an outlier. The default 
+sensitivity is 99.
+""".format(sensitivity))
 
 # Send the request
 
@@ -94,11 +98,11 @@ for x in range(len(anomalies)):
         print(x, end=" ")
 
 inform_about("", """\n
-For a sample of observations we show the meta data that is used to determine
-whether the observation is an anomaly.
+For a sample of anomalies we show the meta data that is used to determine
+the observation is an anomaly.
 """)
 
-for i in [0, 1, 2, 3, 30, 31, 32, 33, 34]: inform_about("", """\
+for i in [21, 22, 23, 30, 31, 32, 44]: inform_about("", """\
 {:2}: {:,} expect {:,} range {:,} to {:,} {}{} {}
 """.format(i,
            round(values[i]),
@@ -143,4 +147,128 @@ a range of values within which we expect the actual value to be. The expected
 range is the shaded area. The actual values are plotted as the blue line, and
 the identified anomalies are shown in red.""", begin="\n")
 
-os.system("atril --preview request-data.pdf")
+os.system("atril --preview request-anom.pdf")
+
+ask_continue()
+
+# We now repeat this for the rattle download data.
+
+DATA_FILE = "rattle.json"
+
+# Read data from a json time series from file.
+
+inform_about("Rattle Data", """\
+The rattle download data is now used for anomaly detection.
+
+We again begin with a review of the data.""",
+             begin="\n")
+
+file_handler = open(DATA_FILE)
+data = json.load(file_handler)
+series = data['series']
+
+inform_about(text="""
+The dataset contains {} {} observations recording the number of downloads
+of the rattle package for R from a CRAN node. This is quite a larger dataset
+and demonstrates a more relaistic scneario. Below we share some sample
+observations from the dataset.
+""".format(len(series), data['granularity']))
+
+print(json.dumps(series[0:2], indent=4), "\n")
+
+ask_continue()
+
+timestamps = [ x['timestamp'] for x in series ]
+values     = [ x['value'] for x in series ]
+
+inform_about("", """
+The timestamps ranges from {} to {}.
+The observations range from {:,} to {:,} with a mean value
+{:,} and standard deviation {:,}.
+""".format(min(timestamps), max(timestamps),
+           min(values), max(values),
+           round(statistics.mean(values)),
+           round(statistics.pstdev(values))))
+
+# Detect anomalies in the time series.
+
+inform_about("Detecting Anomalies", """\
+The data is being sent to the server and the results are being collected.
+A sensitivity of {} was specified in the data to increase the boundary 
+beyond which observations are regarded as an outlier. The default 
+sensitivity is 99.
+""".format(sensitivity))
+
+# Send the request
+
+result = send_request(endpoint, BATCH_URL, subscription_key, data)
+
+expected = result['expectedValues']
+anomaly  = result['isAnomaly']
+negative = result['isNegativeAnomaly']
+positive = result['isPositiveAnomaly']
+lower    = result['lowerMargins']
+upper    = result['upperMargins']
+
+# Find and display the positions of anomalies in the data set
+anomalies = result["isAnomaly"]
+inform_about("", """\
+Anomalies were detected in the following data positions: 
+""", end="\n    ")
+
+for x in range(len(anomalies)):
+    if anomalies[x] == True:
+        print(x, end=" ")
+
+inform_about("", """\n
+For a sample of anopmalies we show the meta data that is used to determine
+the observation as an anomaly.
+""")
+
+for i in [630, 685, 925, 964, 1038, 1039, 2276]: inform_about("", """\
+{:4}: {:3} expect {:,} range {:,} to {:,} {}{} {}
+""".format(i,
+           round(values[i]),
+           round(expected[i]),
+           round(expected[i]-lower[i]),
+           round(expected[i]+upper[i]),
+           "positive" if positive[i] else "",
+           "negative" if negative[i] else "",
+           "anomaly" if anomaly[i] else ""), end="")
+
+# for i in range(len(anomalies)): inform_about("", """\
+# {},{},{},{},{},{}
+# """.format(timestamps[i],
+#            round(values[i]),
+#            round(expected[i]),
+#            round(expected[i]-lower[i]),
+#            round(expected[i]+upper[i]),
+#            "TRUE" if anomaly[i] else "FALSE"), end="")
+
+ask_continue(begin="\n")
+
+# Detect if the latest data point in the time series is an anomaly.
+
+inform_about("Latest Data Point", """\
+A common task is to determine if the latest data point in a time series is an
+anomaly. There are many usecases for apps where a series of data is being 
+streamed.  We are interested to know of an anomaly, when it arises. 
+As data points arrive we can query the service to check if in the context
+of the time series data whether this latest observation is an anomaly.
+""", begin="\n")
+
+result = send_request(endpoint, LATEST_URL, subscription_key, data)
+print(json.dumps(result, indent=4))
+
+ask_continue(begin="\n")
+
+# Generate a plot to show the time series and the anomalies.
+
+inform_about("Visualising the Anomalies", """\
+We now plot the original data overlayed on the expected values which represent
+a range of values within which we expect the actual value to be. The expected
+range is the shaded area (though not particularly visible in this plot). The
+actual values are plotted as the blue line, and the identified anomalies are
+shown in red.""", begin="\n")
+
+os.system("atril --preview rattle-anom.pdf")

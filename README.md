@@ -44,7 +44,6 @@ Demonstration
 -------------
 
 ```console
-$ ml demo azanomaly
 ======================
 Azure Anomaly Detector
 ======================
@@ -56,7 +55,7 @@ The following file has been found and is assumed to contain an Azure
 subscription key and endpoint for Anomaly Detector. We will load 
 the file and use this information.
 
-    /home/gjw/.mlhub/azanomaly/private.txt
+    /home/gjw/github/mlmodels/azanomaly/private.txt
 
 Press Enter to continue: 
 
@@ -92,23 +91,24 @@ Detecting Anomalies
 ===================
 
 The data is being sent to the server and the results are being collected.
+A sensitivity of 95 was specified in the data to increase the boundary 
+beyond which observations are regarded as an outlier. The default 
+sensitivity is 99.
 
 Anomalies were detected in the following data positions: 
 
-    3 18 21 22 23 24 25 28 29 30 31 32 35 44 
+    21 22 23 28 29 30 31 32 44 
 
-For a sample of observations we show the meta data that is used to determine
-whether the observation is an anomaly.
+For a sample of anomalies we show the meta data that is used to determine
+the observation is an anomaly.
 
- 0: 32,858,923 expect 32,894,419 range 32,565,475 to 33,223,363  
- 1: 29,615,278 expect 29,707,932 range 29,410,853 to 30,005,012  
- 2: 22,839,355 expect 22,651,867 range 22,425,348 to 22,878,386  
- 3: 25,948,736 expect 24,943,248 range 24,693,816 to 25,192,680 positive anomaly
-30: 21,244,209 expect 22,473,094 range 22,248,363 to 22,697,825 negative anomaly
-31: 22,576,956 expect 24,813,478 range 24,565,344 to 25,061,613 negative anomaly
-32: 31,957,221 expect 34,017,256 range 33,677,083 to 34,357,428 negative anomaly
-33: 33,841,228 expect 33,864,058 range 33,525,418 to 34,202,699  
-34: 33,554,483 expect 33,577,520 range 33,241,744 to 33,913,295  
+21: 38,144,434 expect 33,381,055 range 31,712,002 to 35,050,108 positive anomaly
+22: 34,662,949 expect 30,169,004 range 28,660,554 to 31,677,454 positive anomaly
+23: 24,623,684 expect 23,087,374 range 21,933,005 to 24,241,743 positive anomaly
+30: 21,244,209 expect 22,473,094 range 21,349,439 to 23,596,749 negative anomaly
+31: 22,576,956 expect 24,813,478 range 23,572,804 to 26,054,152 negative anomaly
+32: 31,957,221 expect 34,017,256 range 32,316,393 to 35,718,119 negative anomaly
+44: 22,504,059 expect 23,773,788 range 22,585,099 to 24,962,477 negative anomaly
 
 Press Enter to continue: 
 
@@ -127,10 +127,10 @@ of the time series data whether this latest observation is an anomaly.
     "isAnomaly": false,
     "isNegativeAnomaly": false,
     "isPositiveAnomaly": false,
-    "lowerMargin": 353442.44421857625,
+    "lowerMargin": 1767212.2210928812,
     "period": 7,
     "suggestedWindow": 29,
-    "upperMargin": 353442.44421857625
+    "upperMargin": 1767212.2210928812
 }
 
 Press Enter to continue: 
@@ -145,7 +145,101 @@ range is the shaded area. The actual values are plotted as the blue line, and
 the identified anomalies are shown in red.
 ```
 ![alt
-text](request-data.png "Actual Values versus Range of Expected Values")
+text](request-anom.png "Actual Values versus Range of Expected Values")
+
+```console
+===========
+Rattle Data
+===========
+
+The rattle download data is now used for anomaly detection.
+
+We again begin with a review of the data.
+
+The dataset contains 2286 daily observations recording the number of downloads
+of the rattle package for R from a CRAN node. This is quite a larger dataset
+and demonstrates a more relaistic scneario. Below we share some sample
+observations from the dataset.
+
+[
+    {
+        "timestamp": "2013-01-01",
+        "value": 8
+    },
+    {
+        "timestamp": "2013-01-02",
+        "value": 21
+    }
+] 
+
+Press Enter to continue: 
+
+The timestamps ranges from 2013-01-01 to 2019-04-05.
+The observations range from 0 to 1,456 with a mean value
+356 and standard deviation 250.
+
+===================
+Detecting Anomalies
+===================
+
+The data is being sent to the server and the results are being collected.
+A sensitivity of 95 was specified in the data to increase the boundary 
+beyond which observations are regarded as an outlier. The default 
+sensitivity is 99.
+
+Anomalies were detected in the following data positions: 
+
+    630 685 925 964 979 981 1020 1028 1033 1034 1038 1039 1043 1048 1120 1121 1128 1144 1248 1258 1288 1300 1311 1318 1320 1321 1327 1340 1347 1402 1427 1428 1429 1472 1479 1483 1512 1520 1528 1552 1575 1593 1594 1597 1602 1603 1610 1633 1640 1656 1657 1659 1660 1668 1699 1704 1705 1708 1709 1710 1713 1720 1727 1740 1741 1747 1749 1750 1752 1755 1761 1762 1766 1768 1769 1780 1784 1791 1802 1803 1808 1809 1830 1848 1865 1866 1877 1878 1879 1880 1882 1901 1924 1925 1926 1939 1951 1957 1964 1972 1989 2013 2014 2034 2040 2068 2118 2119 2121 2140 2143 2149 2160 2163 2164 2165 2201 2208 2218 2248 2249 2253 2260 2274 2276 2280 
+
+For a sample of anopmalies we show the meta data that is used to determine
+the observation as an anomaly.
+
+ 630:  21 expect 249 range 199 to 299 negative anomaly
+ 685:   0 expect 225 range 180 to 270 negative anomaly
+ 925: 527 expect 326 range 261 to 391 positive anomaly
+ 964:   0 expect 225 range 180 to 270 negative anomaly
+1038: 694 expect 380 range 304 to 456 positive anomaly
+1039: 565 expect 359 range 287 to 431 positive anomaly
+2276: 885 expect 619 range 495 to 742 positive anomaly
+
+Press Enter to continue: 
+
+=================
+Latest Data Point
+=================
+
+A common task is to determine if the latest data point in a time series is an
+anomaly. There are many usecases for apps where a series of data is being 
+streamed.  We are interested to know of an anomaly, when it arises. 
+As data points arrive we can query the service to check if in the context
+of the time series data whether this latest observation is an anomaly.
+
+{
+    "expectedValue": 645.2996719661152,
+    "isAnomaly": false,
+    "isNegativeAnomaly": false,
+    "isPositiveAnomaly": false,
+    "lowerMargin": 129.05993439322302,
+    "period": 7,
+    "suggestedWindow": 29,
+    "upperMargin": 129.05993439322302
+}
+
+Press Enter to continue: 
+
+=========================
+Visualising the Anomalies
+=========================
+
+We now plot the original data overlayed on the expected values which represent
+a range of values within which we expect the actual value to be. The expected
+range is the shaded area (though not particularly visible in this plot). The
+actual values are plotted as the blue line, and the identified anomalies are
+shown in red.
+```
+![alt
+text](rattle-anom.png "Actual Values versus Range of Expected Values")
+
 
 ```console
 Thank you for exploring the 'azanomaly' package.

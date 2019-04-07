@@ -1,5 +1,6 @@
 {
     "granularity": "daily",
+    "sensitivity": 95,
     "series": [
       {
         "timestamp": "2018-03-01T00:00:00Z",

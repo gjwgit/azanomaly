@@ -16,6 +16,7 @@ Service supports the identification of anomalies in time series data.
 import os
 import json
 import statistics
+from textwrap import fill
 
 # Constants.
 
@@ -113,15 +114,16 @@ for i in [21, 22, 23, 30, 31, 32, 44]: inform_about("", """\
            "negative" if negative[i] else "",
            "anomaly" if anomaly[i] else ""), end="")
 
-# for i in range(len(anomalies)): inform_about("", """\
-# {},{},{},{},{},{}
-# """.format(timestamps[i],
-#            round(values[i]),
-#            round(expected[i]),
-#            round(expected[i]-lower[i]),
-#            round(expected[i]+upper[i]),
-#            "TRUE" if anomaly[i] else "FALSE"), end="")
-
+f = open("request-anom.csv", "w")
+f.write("timestamp,value,expected,from,to,anomaly\n")
+for i in range(len(anomalies)):
+    f.write("{},{},{},{},{},{}\n".format(timestamps[i],
+                                         round(values[i]),
+                                         round(expected[i]),
+                                         round(expected[i]-lower[i]),
+                                         round(expected[i]+upper[i]),
+                                         "TRUE" if anomaly[i] else "FALSE"))
+os.system("Rscript request-anom.R > /dev/null 2>&1")
 ask_continue(begin="\n")
 
 # Detect if the latest data point in the time series is an anomaly.
@@ -145,7 +147,8 @@ inform_about("Visualising the Anomalies", """\
 We now plot the original data overlayed on the expected values which represent
 a range of values within which we expect the actual value to be. The expected
 range is the shaded area. The actual values are plotted as the blue line, and
-the identified anomalies are shown in red.""", begin="\n")
+the identified anomalies are shown in red.
+""", begin="\n")
 
 os.system("atril --preview request-anom.pdf")
 
@@ -158,17 +161,21 @@ DATA_FILE = "rattle.json"
 # Read data from a json time series from file.
 
 inform_about("Rattle Data", """\
-The rattle download data is now used for anomaly detection.
+We now replicate the same process but with a larger dataset. The rattle
+download data records the number of downloads of the rattle package for
+R from one of the archive nodes on CRAN. We demonstrate anomaly detection
+using this dataset.
 
-We again begin with a review of the data.""",
+We begin with a review of the data.""",
              begin="\n")
 
 file_handler = open(DATA_FILE)
 data = json.load(file_handler)
 series = data['series']
+sensitivity = data['sensitivity']
 
 inform_about(text="""
-The dataset contains {} {} observations recording the number of downloads
+The dataset contains {:,} {} observations recording the number of downloads
 of the rattle package for R from a CRAN node. This is quite a larger dataset
 and demonstrates a more relaistic scneario. Below we share some sample
 observations from the dataset.
@@ -214,13 +221,15 @@ upper    = result['upperMargins']
 anomalies = result["isAnomaly"]
 inform_about("", """\
 Anomalies were detected in the following data positions: 
-""", end="\n    ")
+""")
 
+anom = ""
 for x in range(len(anomalies)):
     if anomalies[x] == True:
-        print(x, end=" ")
+        anom += "{} ".format(x)
+print(fill(anom, initial_indent="     ", subsequent_indent="    "))
 
-inform_about("", """\n
+inform_about("", """
 For a sample of anopmalies we show the meta data that is used to determine
 the observation as an anomaly.
 """)
@@ -236,15 +245,16 @@ for i in [630, 685, 925, 964, 1038, 1039, 2276]: inform_about("", """\
            "negative" if negative[i] else "",
            "anomaly" if anomaly[i] else ""), end="")
 
-# for i in range(len(anomalies)): inform_about("", """\
-# {},{},{},{},{},{}
-# """.format(timestamps[i],
-#            round(values[i]),
-#            round(expected[i]),
-#            round(expected[i]-lower[i]),
-#            round(expected[i]+upper[i]),
-#            "TRUE" if anomaly[i] else "FALSE"), end="")
-
+f = open("rattle-anom.csv", "w")
+f.write("timestamp,value,expected,from,to,anomaly\n")
+for i in range(len(anomalies)):
+    f.write("{},{},{},{},{},{}\n".format(timestamps[i],
+                                         round(values[i]),
+                                         round(expected[i]),
+                                         round(expected[i]-lower[i]),
+                                         round(expected[i]+upper[i]),
+                                         "TRUE" if anomaly[i] else "FALSE"))
+os.system("Rscript rattle-anom.R > /dev/null 2>&1")
 ask_continue(begin="\n")
 
 # Detect if the latest data point in the time series is an anomaly.
@@ -269,6 +279,9 @@ We now plot the original data overlayed on the expected values which represent
 a range of values within which we expect the actual value to be. The expected
 range is the shaded area (though not particularly visible in this plot). The
 actual values are plotted as the blue line, and the identified anomalies are
-shown in red.""", begin="\n")
+shown in red.
+""", begin="\n")
+
+ask_continue()
 
 os.system("atril --preview rattle-anom.pdf")

@@ -37,24 +37,18 @@ ask_continue()
 
 # Read data from a json time series from file.
 
-inform_about("Sample Data", """\
-Here we review the data that we wish to explore for anomalies.""",
-             begin="\n")
-
 file_handler = open(DATA_FILE)
 data = json.load(file_handler)
 series = data['series']
 sensitivity = data['sensitivity']
 
-inform_about(text="""
+inform_about("Sample Data", """\
 The dataset contains {} {} observations recording the number of requests
 received for a particular service. It is quite a small dataset used to 
 illustrate the concepts. Below we see sample observations from the dataset.
-""".format(len(series), data['granularity']))
+""".format(len(series), data['granularity']), begin="\n")
 
-print(json.dumps(series[0:2], indent=4), "\n")
-
-ask_continue()
+print(json.dumps(series[0:2], indent=4))
 
 timestamps = [ x['timestamp'] for x in series ]
 values     = [ x['value'] for x in series ]
@@ -68,6 +62,8 @@ The observations range from {:,} to {:,} with a mean value
            round(statistics.mean(values)),
            round(statistics.pstdev(values))))
 
+ask_continue()
+
 # Detect anomalies in the time series.
 
 inform_about("Detecting Anomalies", """\
@@ -75,7 +71,7 @@ The data is being sent to the server and the results are being collected.
 A sensitivity of {} was specified in the data to increase the boundary 
 beyond which observations are regarded as an outlier. The default 
 sensitivity is 99.
-""".format(sensitivity))
+""".format(sensitivity), begin="\n")
 
 # Send the request
 
@@ -90,15 +86,19 @@ upper    = result['upperMargins']
 
 # Find and display the positions of anomalies in the data set
 anomalies = result["isAnomaly"]
-inform_about("", """\
-Anomalies were detected in the following data positions: 
-""", end="\n    ")
 
+anom = " "
+count = 0
 for x in range(len(anomalies)):
     if anomalies[x] == True:
-        print(x, end=" ")
+        anom += "{} ".format(x)
+        count += 1
+inform_about("", """\
+There were {} anomalies detected at the following data positions: 
+""".format(count))
+print(fill(anom, initial_indent="     ", subsequent_indent="    "))
 
-inform_about("", """\n
+inform_about("", """
 For a sample of anomalies we show the meta data that is used to determine
 the observation is an anomaly.
 """)
@@ -123,6 +123,7 @@ for i in range(len(anomalies)):
                                          round(expected[i]-lower[i]),
                                          round(expected[i]+upper[i]),
                                          "TRUE" if anomaly[i] else "FALSE"))
+f.close()
 os.system("Rscript request-anom.R > /dev/null 2>&1")
 ask_continue(begin="\n")
 
@@ -165,9 +166,9 @@ We now replicate the same process but with a larger dataset. The rattle
 download data records the number of downloads of the rattle package for
 R from one of the archive nodes on CRAN. We demonstrate anomaly detection
 using this dataset.
+""", begin="\n")
 
-We begin with a review of the data.""",
-             begin="\n")
+ask_continue("Now to review the data. ")
 
 file_handler = open(DATA_FILE)
 data = json.load(file_handler)
@@ -175,15 +176,11 @@ series = data['series']
 sensitivity = data['sensitivity']
 
 inform_about(text="""
-The dataset contains {:,} {} observations recording the number of downloads
-of the rattle package for R from a CRAN node. This is quite a larger dataset
-and demonstrates a more relaistic scneario. Below we share some sample
-observations from the dataset.
+The dataset contains {:,} {} observations recording the number of downloads.
+Below we share some sample observations.
 """.format(len(series), data['granularity']))
 
 print(json.dumps(series[0:2], indent=4), "\n")
-
-ask_continue()
 
 timestamps = [ x['timestamp'] for x in series ]
 values     = [ x['value'] for x in series ]
@@ -197,6 +194,8 @@ The observations range from {:,} to {:,} with a mean value
            round(statistics.mean(values)),
            round(statistics.pstdev(values))))
 
+ask_continue()
+
 # Detect anomalies in the time series.
 
 inform_about("Detecting Anomalies", """\
@@ -204,7 +203,7 @@ The data is being sent to the server and the results are being collected.
 A sensitivity of {} was specified in the data to increase the boundary 
 beyond which observations are regarded as an outlier. The default 
 sensitivity is 99.
-""".format(sensitivity))
+""".format(sensitivity), begin="\n")
 
 # Send the request
 
@@ -219,14 +218,16 @@ upper    = result['upperMargins']
 
 # Find and display the positions of anomalies in the data set
 anomalies = result["isAnomaly"]
-inform_about("", """\
-Anomalies were detected in the following data positions: 
-""")
 
 anom = ""
+count = 0
 for x in range(len(anomalies)):
     if anomalies[x] == True:
         anom += "{} ".format(x)
+        count += 1
+inform_about("", """\
+There were {} anomalies detected at the following data positions: 
+""".format(count))
 print(fill(anom, initial_indent="     ", subsequent_indent="    "))
 
 inform_about("", """
@@ -254,6 +255,7 @@ for i in range(len(anomalies)):
                                          round(expected[i]-lower[i]),
                                          round(expected[i]+upper[i]),
                                          "TRUE" if anomaly[i] else "FALSE"))
+f.close()
 os.system("Rscript rattle-anom.R > /dev/null 2>&1")
 ask_continue(begin="\n")
 

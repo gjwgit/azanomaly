@@ -33,7 +33,7 @@ request-data.pdf: plot.R request-data.csv
 	Rscript $<
 
 clean::
-	rm -rf README.txt output
+	rm -rf README.txt output Rplots.pdf
 
 realclean:: clean
 	rm -f 	$(MODEL)_*.mlm

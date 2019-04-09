@@ -3,7 +3,7 @@ meta:
   name         : azanomaly
   title        : Azure Anomaly Detection cognitive service on the cloud.
   keywords     : azure, anomaly detection, cloud
-  version      : 3.0.0
+  version      : 3.0.1
   languages    : py
   display      : demo
   license      : mit

@@ -17,6 +17,6 @@ dependencies:
     - demo.py
     - utils.py
     - request-data.json
-    - request-data.pdf
+    - request-anom.pdf
 commands:
   demo    : Demonstrate the functionality of anomaly detection.

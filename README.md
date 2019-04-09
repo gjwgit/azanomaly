@@ -69,8 +69,6 @@ Press Enter to continue:
 Sample Data
 ===========
 
-Here we review the data that we wish to explore for anomalies.
-
 The dataset contains 47 daily observations recording the number of requests
 received for a particular service. It is quite a small dataset used to 
 illustrate the concepts. Below we see sample observations from the dataset.
@@ -84,13 +82,13 @@ illustrate the concepts. Below we see sample observations from the dataset.
         "timestamp": "2018-03-02T00:00:00Z",
         "value": 29615278
     }
-] 
-
-Press Enter to continue: 
+]
 
 The timestamps ranges from 2018-03-01T00:00:00Z to 2018-04-16T00:00:00Z.
 The observations range from 21,244,209 to 38,144,434 with a mean value
 30,379,943 and standard deviation 4,651,713.
+
+Press Enter to continue: 
 
 ===================
 Detecting Anomalies
@@ -101,9 +99,9 @@ A sensitivity of 95 was specified in the data to increase the boundary
 beyond which observations are regarded as an outlier. The default 
 sensitivity is 99.
 
-Anomalies were detected in the following data positions: 
+There were 9 anomalies detected at the following data positions: 
 
-    21 22 23 28 29 30 31 32 44 
+      21 22 23 28 29 30 31 32 44
 
 For a sample of anomalies we show the meta data that is used to determine
 the observation is an anomaly.
@@ -193,11 +191,20 @@ A sensitivity of 95 was specified in the data to increase the boundary
 beyond which observations are regarded as an outlier. The default 
 sensitivity is 99.
 
-Anomalies were detected in the following data positions: 
+There were 126 anomalies detected at the following data positions: 
 
-    630 685 925 964 979 981 1020 1028 1033 1034 1038 1039 1043 1048 1120 1121 1128 1144 1248 1258 1288 1300 1311 1318 1320 1321 1327 1340 1347 1402 1427 1428 1429 1472 1479 1483 1512 1520 1528 1552 1575 1593 1594 1597 1602 1603 1610 1633 1640 1656 1657 1659 1660 1668 1699 1704 1705 1708 1709 1710 1713 1720 1727 1740 1741 1747 1749 1750 1752 1755 1761 1762 1766 1768 1769 1780 1784 1791 1802 1803 1808 1809 1830 1848 1865 1866 1877 1878 1879 1880 1882 1901 1924 1925 1926 1939 1951 1957 1964 1972 1989 2013 2014 2034 2040 2068 2118 2119 2121 2140 2143 2149 2160 2163 2164 2165 2201 2208 2218 2248 2249 2253 2260 2274 2276 2280 
+     630 685 925 964 979 981 1020 1028 1033 1034 1038 1039 1043 1048
+    1120 1121 1128 1144 1248 1258 1288 1300 1311 1318 1320 1321 1327
+    1340 1347 1402 1427 1428 1429 1472 1479 1483 1512 1520 1528 1552
+    1575 1593 1594 1597 1602 1603 1610 1633 1640 1656 1657 1659 1660
+    1668 1699 1704 1705 1708 1709 1710 1713 1720 1727 1740 1741 1747
+    1749 1750 1752 1755 1761 1762 1766 1768 1769 1780 1784 1791 1802
+    1803 1808 1809 1830 1848 1865 1866 1877 1878 1879 1880 1882 1901
+    1924 1925 1926 1939 1951 1957 1964 1972 1989 2013 2014 2034 2040
+    2068 2118 2119 2121 2140 2143 2149 2160 2163 2164 2165 2201 2208
+    2218 2248 2249 2253 2260 2274 2276 2280
 
-For a sample of anopmalies we show the meta data that is used to determine
+For a sample of anomalies we show the meta data that is used to determine
 the observation as an anomaly.
 
  630:  21 expect 249 range 199 to 299 negative anomaly

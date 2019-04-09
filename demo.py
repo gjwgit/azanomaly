@@ -153,6 +153,8 @@ the identified anomalies are shown in red.
 
 os.system("atril --preview request-anom.pdf")
 
+print("Press Ctrl-W to close the graphics window.\n")
+
 ask_continue()
 
 # We now repeat this for the rattle download data.
@@ -285,5 +287,7 @@ shown in red.
 """, begin="\n")
 
 ask_continue()
+
+print("\nPress Ctrl-W to close the graphics window.\n")
 
 os.system("atril --preview rattle-anom.pdf")

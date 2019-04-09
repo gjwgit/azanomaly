@@ -288,6 +288,6 @@ shown in red.
 
 ask_continue()
 
-print("\nPress Ctrl-W to close the graphics window.\n")
+print("\nPress Ctrl-W to close the graphics window.")
 
 os.system("atril --preview rattle-anom.pdf")

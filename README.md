@@ -26,24 +26,25 @@ Python](https://docs.microsoft.com/en-us/azure/cognitive-services/anomaly-detect
 Usage
 -----
 
-- To install mlhub (e.g., on Ubuntu 18.04 LTS)
+- To install mlhub (Ubuntu 18.04 LTS)
 
-```shell
-$ pip3 install mlhub
-```
+  ```shell
+  $ pip3 install mlhub
+  ```
 
-- To install and run the demo:
+- To install and configure the demo:
 
-```shell
-$ ml install   azanomaly
-$ ml configure azanomaly
-$ ml demo      azanomaly
-```
+  ```shell
+  $ ml install   azanomaly
+  $ ml configure azanomaly
+  ```
 
 Demonstration
 -------------
 
 ```console
+$ ml demo azanomaly
+
 ======================
 Azure Anomaly Detector
 ======================
@@ -51,11 +52,16 @@ Azure Anomaly Detector
 Welcome to a demo of the pre-built model for Anomaly Detection. This Azure
 Service supports the identification of anomalies in time series data.
 
-The following file has been found and is assumed to contain an Azure 
-subscription key and endpoint for Anomaly Detector. We will load 
-the file and use this information.
+An Azure resource is required to access this service (and to run this command).
+See the README for details of a free subscription. If you have a subscription
+then please paste the key and the endpoint here.
 
-    /home/gjw/github/mlmodels/azanomaly/private.txt
+Please paste your Anomaly Detector subscription key: ********************************
+Please paste your endpoint: https://westus2.api.cognitive.microsoft.com
+
+I've saved that information into the file:
+
+    /home/kayon/.mlhub/azanomaly/private.txt
 
 Press Enter to continue: 
 

@@ -16,7 +16,7 @@ dependencies:
     - README.md
     - demo.py
     - utils.py
-    - request-data.json
-    - request-anom.pdf
+    - request.json
+    - rattle.json
 commands:
   demo    : Demonstrate the functionality of anomaly detection.

@@ -37,6 +37,5 @@ clean::
 
 realclean:: clean
 	rm -f 	$(MODEL)_*.mlm
-	rm -f 	$(MODEL)_rpart_riskchart.pdf 	\
-		rpart_model.pdf			\
-		varimp.pdf			\
+	rm -f 	rattle-anom.pdf 	\
+		request-anom.pdf	\

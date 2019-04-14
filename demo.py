@@ -6,7 +6,7 @@
 #
 # This demo is based on the Quick Start published on Azure.
 
-from utils import get_key_endpoint, send_request, ask_continue, inform_about
+from mlhub.pkg import get_key_endpoint, send_request, ask_continue, inform_about
 
 inform_about("Azure Anomaly Detector", """\
 Welcome to a demo of the pre-built model for Anomaly Detection. This Azure

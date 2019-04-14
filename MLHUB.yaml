@@ -15,7 +15,6 @@ dependencies:
     - https://mlhub.ai/empty.txt: private.txt
     - README.md
     - demo.py
-    - utils.py
     - request.json
     - request-anom.R
     - rattle.json

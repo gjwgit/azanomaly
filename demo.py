@@ -6,7 +6,7 @@
 #
 # This demo is based on the Quick Start published on Azure.
 
-from mlhub.pkg import get_key_endpoint, send_request, mlask, mlcat
+from mlhub.pkg import azkey, azrequest, mlask, mlcat
 
 mlcat("Azure Anomaly Detector", """\
 Welcome to a demo of the pre-built model for Anomaly Detection. This Azure
@@ -26,12 +26,12 @@ DATA_FILE = "request.json"
 
 # URLs for anomaly detection with the Anomaly Detector API.
 
-BATCH_URL  = "/anomalydetector/v1.0/timeseries/entire/detect"
-LATEST_URL = "/anomalydetector/v1.0/timeseries/last/detect"
+BATCH_URL  = "anomalydetector/v1.0/timeseries/entire/detect"
+LATEST_URL = "anomalydetector/v1.0/timeseries/last/detect"
 
 # Request subscription key and endpoint from user.
 
-subscription_key, endpoint = get_key_endpoint(KEY_FILE, SERVICE)
+subscription_key, endpoint = azkey(KEY_FILE, SERVICE)
 
 mlask()
 
@@ -75,7 +75,7 @@ sensitivity is 99.
 
 # Send the request
 
-result = send_request(endpoint, BATCH_URL, subscription_key, data)
+result = azrequest(endpoint, BATCH_URL, subscription_key, data)
 
 expected = result['expectedValues']
 anomaly  = result['isAnomaly']
@@ -137,7 +137,7 @@ As data points arrive we can query the service to check if in the context
 of the time series data whether this latest observation is an anomaly.
 """, begin="\n")
 
-result = send_request(endpoint, LATEST_URL, subscription_key, data)
+result = azrequest(endpoint, LATEST_URL, subscription_key, data)
 print(json.dumps(result, indent=4))
 
 mlask(begin="\n")
@@ -209,7 +209,7 @@ sensitivity is 99.
 
 # Send the request
 
-result = send_request(endpoint, BATCH_URL, subscription_key, data)
+result = azrequest(endpoint, BATCH_URL, subscription_key, data)
 
 expected = result['expectedValues']
 anomaly  = result['isAnomaly']
@@ -271,7 +271,7 @@ As data points arrive we can query the service to check if in the context
 of the time series data whether this latest observation is an anomaly.
 """, begin="\n")
 
-result = send_request(endpoint, LATEST_URL, subscription_key, data)
+result = azrequest(endpoint, LATEST_URL, subscription_key, data)
 print(json.dumps(result, indent=4))
 
 mlask(begin="\n")

@@ -28,16 +28,16 @@ Usage
 
 - To install mlhub (Ubuntu 18.04 LTS)
 
-  ```shell
-  $ pip3 install mlhub
-  ```
+```console
+$ pip3 install mlhub
+```
 
 - To install and configure the demo:
 
-  ```shell
-  $ ml install   azanomaly
-  $ ml configure azanomaly
-  ```
+```console
+$ ml install   azanomaly
+$ ml configure azanomaly
+```
 
 Demonstration
 -------------

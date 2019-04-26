@@ -21,7 +21,7 @@ from textwrap import fill
 # Constants.
 
 SERVICE   = "Anomaly Detector"
-KEY_FILE  = os.file.path(os.getcwd(), "private.txt")
+KEY_FILE  = os.path.join(os.getcwd(), "private.txt")
 DATA_FILE = "request.json"
 
 # URLs for anomaly detection with the Anomaly Detector API.

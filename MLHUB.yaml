@@ -1,7 +1,7 @@
 --- # Azure Anomalies
 meta:
   name         : azanomaly
-  title        : Azure Anomaly Detection cognitive service on the cloud.
+  title        : Azure Anomaly Detection.
   keywords     : azure, anomaly detection, cloud
   version      : 3.1.4
   languages    : py

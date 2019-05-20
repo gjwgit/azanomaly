@@ -148,7 +148,7 @@ a range of values within which we expect the actual value to be. The expected
 range is the shaded area. The actual values are plotted as the blue line, and
 the identified anomalies are shown in red.
 ```
-![](request-anom.png "Actual Values versus Range of Expected Values")
+![](sample-request-anom.png "Actual Values versus Range of Expected Values")
 
 ```console
 ===========
@@ -249,7 +249,7 @@ range is the shaded area (though not particularly visible in this plot). The
 actual values are plotted as the blue line, and the identified anomalies are
 shown in red.
 ```
-![](rattle-anom.png "Actual Values versus Range of Expected Values")
+![](sample-rattle-anom.png "Actual Values versus Range of Expected Values")
 
 
 ```console

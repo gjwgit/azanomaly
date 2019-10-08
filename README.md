@@ -7,11 +7,11 @@ Cognitive Services. This service identifies anomalies in time series
 data.
 
 A free Azure subscription allowing up to 20,000 calls per month is
-available from https://azure.microsoft.com/free/. Once set up visit
-https://ms.portal.azure.com and Create a resource under AI and Machine
-Learning called Anomaly Detection. Once created you can access the web
-API subscription key and endpoint from the portal. This will be
-prompted for in the demo.
+available from https://azure.microsoft.com/free/. After subscribing
+visit https://ms.portal.azure.com and Create a resource under AI and
+Machine Learning called Anomaly Detection. Once created you can access
+the web API subscription key and endpoint from the portal. This will
+be prompted for in the demo.
 
 Please note that this is *closed source software* which limits your
 freedoms and has no guarantee of ongoing availability.
